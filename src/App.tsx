@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { debounce, cloneDeep, findLastIndex } from 'lodash'
+import { faker } from '@faker-js/faker'
 
 import DynamicList from './components/DynamicList'
 import MockTitle from './components/MockTitle'
@@ -126,19 +127,24 @@ function App(): React.ReactElement {
       return {
         ...c,
         chapterTitle: `chapter ${index + 3}`,
-        content: <MockContent chapterTitle={`chapter ${index + 3}`} />
+        content: (
+          <MockContent
+            chapterTitle={`chapter ${index + 3}`}
+            oldContent={faker.lorem.paragraphs(5, '\n\n')}
+            newContent={faker.lorem.paragraphs(5, '\n\n')}
+          />
+        )
       }
     }) as Content[]
     setContent(finalContent)
   }, [])
   useEffect(() => {
-    const childNode = appMainRef?.current?.children
-    if (childNode) {
+    if (appMainRef?.current?.children) {
       setChildrenTop(
-        Array.from(childNode).map((child) => child.getBoundingClientRect().top)
+        Array.from(appMainRef?.current?.children).map((child) => child.getBoundingClientRect().top)
       )
     }
-  }, [appMainRef.current])
+  }, [appMainRef?.current?.children])
   useEffect(() => {
     const target = appMainRef.current
     target?.addEventListener('scroll', debouncedHandleScroll)
