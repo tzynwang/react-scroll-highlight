@@ -1,12 +1,10 @@
-import React from 'react';
-
-export interface MockContentProps {
-  chapterTitle: string;
-}
+import React from 'react'
 
 export interface Content {
-  id: string;
-  classNames: string[];
-  chapterTitle: string;
-  content: React.ReactNode;
+  id: string
+  classNames: string[]
+  chapterTitle: string
+  content: React.ReactNode
 }
+
+export type PartialContent = Partial<Content>
