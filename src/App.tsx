@@ -11,34 +11,13 @@ import './App.css'
 import type { Content, PartialContent } from './types'
 
 const CONTENT: PartialContent[] = [
-  {
-    id: uuidv4(),
-    classNames: ['AppSideHighlight']
-  },
-  {
-    id: uuidv4(),
-    classNames: ['']
-  },
-  {
-    id: uuidv4(),
-    classNames: ['']
-  },
-  {
-    id: uuidv4(),
-    classNames: ['']
-  },
-  {
-    id: uuidv4(),
-    classNames: ['']
-  },
-  {
-    id: uuidv4(),
-    classNames: ['']
-  },
-  {
-    id: uuidv4(),
-    classNames: ['']
-  }
+  { id: uuidv4() },
+  { id: uuidv4() },
+  { id: uuidv4() },
+  { id: uuidv4() },
+  { id: uuidv4() },
+  { id: uuidv4() },
+  { id: uuidv4() }
 ]
 
 function App(): React.ReactElement {
@@ -120,16 +99,18 @@ function App(): React.ReactElement {
       if (index === 0) {
         return {
           ...c,
+          classNames: ['AppSideHighlight'],
           chapterTitle: 'summary',
           content: <MockTitle content="summary" />
         }
       }
       return {
         ...c,
-        chapterTitle: `chapter ${index + 3}`,
+        classNames: [''],
+        chapterTitle: `chapter ${index}`,
         content: (
           <MockContent
-            chapterTitle={`chapter ${index + 3}`}
+            chapterTitle={`chapter ${index}`}
             oldContent={faker.lorem.paragraphs(5, '\n\n')}
             newContent={faker.lorem.paragraphs(5, '\n\n')}
           />
@@ -141,7 +122,9 @@ function App(): React.ReactElement {
   useEffect(() => {
     if (appMainRef?.current?.children) {
       setChildrenTop(
-        Array.from(appMainRef?.current?.children).map((child) => child.getBoundingClientRect().top)
+        Array.from(appMainRef?.current?.children).map(
+          (child) => child.getBoundingClientRect().top
+        )
       )
     }
   }, [appMainRef?.current?.children])
